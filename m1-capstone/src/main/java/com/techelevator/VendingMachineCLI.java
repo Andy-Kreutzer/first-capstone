@@ -23,12 +23,7 @@ public class VendingMachineCLI {
 	private static final String SUB_MENU_OPTION_SELECT_PRODUCT = "Select Product";
 	private static final String SUB_MENU_OPTION_FINISH_TRANSACTION = "Finish Transaction";
 	private static final String[] SUB_MENU_OPTIONS = { SUB_MENU_OPTION_FEED_MONEY, SUB_MENU_OPTION_SELECT_PRODUCT, SUB_MENU_OPTION_FINISH_TRANSACTION};
-	private static final String SUB_MENU_OPTION_Money_Denomination1 = "Add $1.00";
-	private static final String SUB_MENU_OPTION_Money_Denomination5 = "Add $5.00";
-	private static final String SUB_MENU_OPTION_Money_Denomination10 = "Add $10.00";
-	private static final String SUB_MENU_OPTION_Money_Denomination20 = "Add $20.00";
-	private static final String SUB_MENU_OPTION_Money_DenominationDone = "Done adding money";
-	private static final String[] MONEY_AMOUNT = {SUB_MENU_OPTION_Money_Denomination1, SUB_MENU_OPTION_Money_Denomination5, SUB_MENU_OPTION_Money_Denomination10, SUB_MENU_OPTION_Money_Denomination1};
+	
 	
 	private Menu menu;
 	
@@ -37,9 +32,10 @@ public class VendingMachineCLI {
 	static List <String> arrayOfLines = new ArrayList <String> ();
 	static List <String> fieldArray = new ArrayList <String> ();
 	static FileWriteIn fileInArrayList;
-	double custBalance = 0.00;
+	private double custBalance;
 	
-	private Money money;
+	Money money = new Money();
+	
 	
 	
 	public VendingMachineCLI(Menu menu) {
@@ -53,17 +49,18 @@ public class VendingMachineCLI {
 			if(choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 			displayProducts();
 			} else if(choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				boolean keepGoing = true;
+				boolean keepGoing = true;		
 				while (keepGoing == true) {
+					custBalance = money.getCurrentMoney();
+					System.out.println("\n Current Balance: $" + custBalance);	
 					String subChoice = (String)menu.getChoiceFromOptions(SUB_MENU_OPTIONS);
 					if (subChoice.equals(SUB_MENU_OPTION_FEED_MONEY)) {
-						String moneyInput = (String)menu.getChoiceFromOptions(MONEY_AMOUNT);
-						custBalance = money.addMoney(moneyInput);
-						System.out.println(custBalance);
+						money.userMoney();
 					} else if(subChoice.equals(SUB_MENU_OPTION_SELECT_PRODUCT)) {
 						//System.out.println(fileInArrayList.toString());
 					}
 					else  {
+						money.returnChange();
 						keepGoing = false;
 					}
 				}
@@ -92,7 +89,11 @@ public class VendingMachineCLI {
 		}
 	}
 	
-	private void displayProducts() {
+	public List<String> getProductsToFill() {
+		return arrayOfLines;
+	}
+	
+	public void displayProducts() {
 		for (int i = 0; i < arrayOfLines.size(); i++) {
 			String[] fields = arrayOfLines.get(i).split("\\|");
 			System.out.println(fields[0]+": "+fields[1]+"  $"+fields[2]);

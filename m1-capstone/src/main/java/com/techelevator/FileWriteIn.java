@@ -10,14 +10,10 @@ public class FileWriteIn {
 	private String productType;
 	
 	public FileWriteIn() {
-	
+		
 	}
 
-	@Override
-	public String toString() {
-		return "Slot [productSlot=" + productSlot + ", productName=" + productName + ", productPrice=" + productPrice
-				+ ", productType=" + productType + "]" + "\n";
-	}
+	
 
 	public String getProductSlot() {
 		return productSlot;
