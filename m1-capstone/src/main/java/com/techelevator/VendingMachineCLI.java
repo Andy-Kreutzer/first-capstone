@@ -33,8 +33,9 @@ public class VendingMachineCLI {
 	static List <String> fieldArray = new ArrayList <String> ();
 	static FileWriteIn fileInArrayList;
 	private double custBalance;
-	
-	Money money = new Money();
+	private static int itemsPerSlot = 5;
+	private Money money = new Money();
+	private static Slot slot = new Slot();
 	
 	
 	
@@ -87,6 +88,7 @@ public class VendingMachineCLI {
 				arrayOfLines.add(line);
 			}
 		}
+		slot.loadSlot(itemsPerSlot, arrayOfLines);
 	}
 	
 	public List<String> getProductsToFill() {
@@ -98,9 +100,10 @@ public class VendingMachineCLI {
 			String[] fields = arrayOfLines.get(i).split("\\|");
 			System.out.println(fields[0]+": "+fields[1]+"  $"+fields[2]);
 		}
-	}			
-
+	}
 }
+	
+
 
 
 

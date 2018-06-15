@@ -28,11 +28,6 @@ public class Money {
 			System.out.println("\n Money not accepted, must be a whole number.");
 		}
 	}
-	
-	public String getUserMoney() {
-		return moneyString;
-	}
-	
 
 	
 	public double moneySpent () {
