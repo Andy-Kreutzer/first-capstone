@@ -89,6 +89,7 @@ public class VendingMachineCLI {
 			}
 		}
 		slot.loadSlot(itemsPerSlot, arrayOfLines);
+		System.out.println(slot.getProductsInSlot().get("A1"));
 	}
 	
 	public List<String> getProductsToFill() {
