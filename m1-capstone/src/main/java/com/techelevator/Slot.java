@@ -13,8 +13,12 @@ public class Slot {
 	public Slot () {
 	}
 
-	public void loadSlot(String productSlot, ArrayList<Product> product) {
-		this.productsInSlot.put(productSlot, product);  
+	public void loadSlot(String productSlot, Product product, int itemsPerSlot) {
+		ArrayList <Product> productInArray = new ArrayList<Product>();
+		for(int j = 0; j < itemsPerSlot; j++) { 
+			productInArray.add(product);
+		}
+		this.productsInSlot.put(productSlot, productInArray);  
 		
 		System.out.println(productsInSlot);
 

@@ -25,35 +25,19 @@ public class Inventory {
 			String[] fields = arrayOfLines.get(i).split("\\|");
 			if (fields[3].equals("Chip")) {
 				Product chip = new Chips(fields[1], Double.parseDouble(fields[2]), fields[3]);
-				ArrayList <Product> productInArray = new ArrayList<Product>();
-				for(int j = 0; j < itemsPerSlot; j++) { 
-					productInArray.add(chip);
-				}
-				slot.loadSlot(fields[0], productInArray);
+				slot.loadSlot(fields[0], chip, itemsPerSlot);
 			}
 			if (fields[3].equals("Gum")) {
 				Product gum = new Gum(fields[1], Double.parseDouble(fields[2]), fields[3]);		
-				ArrayList <Product> productInArray = new ArrayList<Product>();
-				for(int j = 0; j < itemsPerSlot; j++) { 
-					productInArray.add(gum);
-				}
-				slot.loadSlot(fields[0], productInArray);
+				slot.loadSlot(fields[0], gum, itemsPerSlot);
 			}
 			if (fields[3].equals("Drink")) {
 				Product drink = new Drink(fields[1], Double.parseDouble(fields[2]), fields[3]);			
-				ArrayList <Product> productInArray = new ArrayList<Product>();
-				for(int j = 0; j < itemsPerSlot; j++) { 
-					productInArray.add(drink);
-				}
-				slot.loadSlot(fields[0], productInArray);
+				slot.loadSlot(fields[0], drink, itemsPerSlot);
 			}
 			if (fields[3].equals("Candy")) {
 				Product candy = new Candy(fields[1], Double.parseDouble(fields[2]), fields[3]);	
-				ArrayList <Product> productInArray = new ArrayList<Product>();
-				for(int j = 0; j < itemsPerSlot; j++) { 
-					productInArray.add(candy);
-				}
-				slot.loadSlot(fields[0], productInArray);
+				slot.loadSlot(fields[0], candy, itemsPerSlot);
 			}				
 		}
 		
