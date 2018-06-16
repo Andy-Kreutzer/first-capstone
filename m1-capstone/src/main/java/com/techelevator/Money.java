@@ -6,9 +6,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Money {
-	private Scanner nScan = new Scanner(System.in);
-	private String moneyString;
-	private double checkMoney;
+	
 	private double totalMoney;
 	private double moneySpent;
 	private int quarters, dimes, nickels;
@@ -17,19 +15,9 @@ public class Money {
 		
 	}
 	
-	public void userMoney ( ) {
-		System.out.print("Enter money in whole currency: $");
-		moneyString = nScan.nextLine();
-		checkMoney = Double.parseDouble(moneyString);
-		if (checkMoney % 1 == 0) {
-			this.totalMoney +=checkMoney;
-		}
-		else {
-			System.out.println("\n Money not accepted, must be a whole number.");
-		}
+	public void setCurrentMoney(Double userMoney) {
+		this.totalMoney += userMoney;
 	}
-
-	
 	public double moneySpent () {
 		return this.moneySpent;
 	}
@@ -47,7 +35,6 @@ public class Money {
 	}
 	
 	public double getCurrentMoney () {
-		this.totalMoney -= this.moneySpent;
 		return this.totalMoney;
 	}
 }

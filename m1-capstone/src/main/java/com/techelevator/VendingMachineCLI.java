@@ -4,12 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.techelevator.products.Chips;
+import com.techelevator.products.Product;
 import com.techelevator.view.Menu;
+import com.techelevator.view.MenuTwo;
 
 @SuppressWarnings("unused")
 public class VendingMachineCLI {
@@ -26,15 +30,14 @@ public class VendingMachineCLI {
 	
 	
 	private Menu menu;
-	
-	static ArrayList <Product> productList = new ArrayList <Product> ();
-	static Map <String, Product> slotProductMap = new HashMap <String, Product> ();
-	static List <String> arrayOfLines = new ArrayList <String> ();
-	static List <String> fieldArray = new ArrayList <String> ();
-	static FileWriteIn fileInArrayList;
-	private double custBalance;
-	private static int itemsPerSlot = 5;
+	private MenuTwo menuTwo = new MenuTwo();
+	private static List <String> arrayOfLines = new ArrayList <String> ();
+	private static double custBalance = 0;
+	private static String userProductChoice;
+	private int itemsPerSlot = 5;
 	private Money money = new Money();
+	private static Inventory inventory = new Inventory();
+	private String productSelection;
 	private static Slot slot = new Slot();
 	
 	
@@ -48,7 +51,7 @@ public class VendingMachineCLI {
 			String choice = (String)menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			
 			if(choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-			displayProducts();
+			menuTwo.displayProducts(arrayOfLines);
 			} else if(choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				boolean keepGoing = true;		
 				while (keepGoing == true) {
@@ -56,9 +59,11 @@ public class VendingMachineCLI {
 					System.out.println("\n Current Balance: $" + custBalance);	
 					String subChoice = (String)menu.getChoiceFromOptions(SUB_MENU_OPTIONS);
 					if (subChoice.equals(SUB_MENU_OPTION_FEED_MONEY)) {
-						money.userMoney();
+						money.setCurrentMoney(menuTwo.setUserDeposit());
 					} else if(subChoice.equals(SUB_MENU_OPTION_SELECT_PRODUCT)) {
-						//System.out.println(fileInArrayList.toString());
+						slot.setCurrentProductChoice(menuTwo.setUserProductChoice());
+						//userProductChoice = menuTwo.setUserProductChoice();
+						//handleProductChoice();
 					}
 					else  {
 						money.returnChange();
@@ -75,6 +80,7 @@ public class VendingMachineCLI {
 	
 	public static void main(String[] args) throws IOException {
 		fileRead();
+		slot.getProductsInSlot();
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
@@ -88,21 +94,17 @@ public class VendingMachineCLI {
 				arrayOfLines.add(line);
 			}
 		}
-		slot.loadSlot(itemsPerSlot, arrayOfLines);
-		System.out.println(slot.getProductsInSlot().get("A1"));
+		inventory.createProduct(arrayOfLines);
 	}
 	
-	public List<String> getProductsToFill() {
-		return arrayOfLines;
-	}
+	//public void handleProductChoice() {
+	//	slot.reduceInventory(userProductChoice);
+	//}
 	
-	public void displayProducts() {
-		for (int i = 0; i < arrayOfLines.size(); i++) {
-			String[] fields = arrayOfLines.get(i).split("\\|");
-			System.out.println(fields[0]+": "+fields[1]+"  $"+fields[2]);
-		}
-	}
+	
 }
+
+
 	
 
 
