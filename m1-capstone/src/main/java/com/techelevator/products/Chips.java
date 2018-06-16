@@ -13,8 +13,7 @@ public class Chips extends Product {
 
 	@Override
 	public void makeNoise() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Crunch Crunch, Yum!");
 	}
 
 }

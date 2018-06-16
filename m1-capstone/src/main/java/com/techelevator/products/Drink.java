@@ -10,8 +10,8 @@ public class Drink extends Product {
 
 	@Override
 	public void makeNoise() {
-		// TODO Auto-generated method stub
-
+		
+		System.out.println("Glug Glug, Yum!");
 	}
 
 }

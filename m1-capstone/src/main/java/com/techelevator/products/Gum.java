@@ -9,7 +9,7 @@ public class Gum extends Product {
 
 	@Override
 	public void makeNoise() {
-		// TODO Auto-generated method stub
+		System.out.println("Chew Chew, Yum!");
 		
 	}
 

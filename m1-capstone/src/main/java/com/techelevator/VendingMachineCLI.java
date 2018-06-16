@@ -1,8 +1,11 @@
 package com.techelevator;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -41,7 +44,7 @@ public class VendingMachineCLI {
 	private static Inventory inventory = new Inventory();
 	private String productSelection;
 	private static Slot slot = new Slot();
-	
+	private Product product;
 	
 	
 	public VendingMachineCLI(Menu menu) {
@@ -82,6 +85,7 @@ public class VendingMachineCLI {
 	
 	public static void main(String[] args) throws IOException {
 		fileRead();
+		writeFile();
 		slot.getProductsInSlot();
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
@@ -103,7 +107,13 @@ public class VendingMachineCLI {
 	//	slot.reduceInventory(userProductChoice);
 	//}
 	
-	
+	public static void writeFile () throws IOException {
+		FileWriter fileWriter = new FileWriter("VendingLog.txt");
+		PrintWriter printWriter = new PrintWriter(fileWriter);
+		printWriter.print(System.currentTimeMillis());
+		printWriter.close();
+		
+	}
 }
 
 

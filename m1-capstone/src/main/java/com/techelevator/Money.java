@@ -3,13 +3,17 @@ package com.techelevator;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.techelevator.products.Product;
+import com.techelevator.view.MenuTwo;
 
 public class Money {
 	
 	private double totalMoney;
-	private double moneySpent;
 	private int quarters, dimes, nickels;
+	private double priceForItem;
 	
 	public Money () {
 		
@@ -18,8 +22,9 @@ public class Money {
 	public void setCurrentMoney(Double userMoney) {
 		this.totalMoney += userMoney;
 	}
-	public double moneySpent () {
-		return this.moneySpent;
+	
+	public void takeMoneyFromTotal () {
+		this.totalMoney -= priceForItem;
 	}
 	
 	public void returnChange() {
