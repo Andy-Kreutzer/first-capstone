@@ -1,31 +1,24 @@
 package com.techelevator;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-
 import com.techelevator.products.Product;
 
 
 public class Slot {
 	private Map <String, ArrayList<Product>> productsInSlot = new LinkedHashMap <String, ArrayList<Product>> ();
-	private ArrayList <Product> productInArray = new ArrayList<Product>(); 
-	
 	private String currentKey;
 	
 	public Slot () {
 	}
 
-	public void loadSlot(int itemsPerSlot, Product productInfo, String productSlot) {
-		for(int i = 0; i < itemsPerSlot; i++) { 
-			productInArray.add(productInfo);
-			this.productsInSlot.put(productSlot, productInArray);  
+	public void loadSlot(String productSlot, ArrayList<Product> product) {
+		this.productsInSlot.put(productSlot, product);  
+		
+		System.out.println(productsInSlot);
 
-		}
-			}
+	}
 
 	@Override
 	public String toString() {
