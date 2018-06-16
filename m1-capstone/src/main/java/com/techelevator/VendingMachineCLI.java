@@ -3,6 +3,8 @@ package com.techelevator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,7 +34,7 @@ public class VendingMachineCLI {
 	private Menu menu;
 	private MenuTwo menuTwo = new MenuTwo();
 	private static List <String> arrayOfLines = new ArrayList <String> ();
-	private static double custBalance = 0;
+	private BigDecimal custBalance = new BigDecimal("0.00");
 	private static String userProductChoice;
 	private int itemsPerSlot = 5;
 	private Money money = new Money();
@@ -55,7 +57,7 @@ public class VendingMachineCLI {
 			} else if(choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				boolean keepGoing = true;		
 				while (keepGoing == true) {
-					custBalance = money.getCurrentMoney();
+					custBalance = new BigDecimal(money.getCurrentMoney()).setScale(2, RoundingMode.HALF_UP);
 					System.out.println("\n Current Balance: $" + custBalance);	
 					String subChoice = (String)menu.getChoiceFromOptions(SUB_MENU_OPTIONS);
 					if (subChoice.equals(SUB_MENU_OPTION_FEED_MONEY)) {
