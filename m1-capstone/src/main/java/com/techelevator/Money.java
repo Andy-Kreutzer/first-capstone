@@ -8,18 +8,19 @@ import java.util.Scanner;
 public class Money {
 	
 	private double totalMoney;
-	private double moneySpent;
+	private double totalMoneySpent=0;
 	private int quarters, dimes, nickels;
 	
 	public Money () {
 		
 	}
 	
-	public void setCurrentMoney(Double userMoney) {
+	public void setCurrentMoney(double userMoney) {
 		this.totalMoney += userMoney;
 	}
-	public double moneySpent () {
-		return this.moneySpent;
+	public void moneySpent (double moneySpent) {
+		totalMoneySpent +=moneySpent;
+		this.totalMoney -= moneySpent;
 	}
 	
 	public void returnChange() {

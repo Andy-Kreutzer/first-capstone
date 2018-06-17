@@ -8,6 +8,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -41,6 +42,7 @@ public class VendingMachineCLI {
 	private static Inventory inventory = new Inventory();
 	private String productSelection;
 	private static Slot slot = new Slot();
+	private static Map <String, ArrayList<Product>> slotMap = new LinkedHashMap<String, ArrayList<Product>>();
 	
 	
 	
@@ -62,10 +64,10 @@ public class VendingMachineCLI {
 					String subChoice = (String)menu.getChoiceFromOptions(SUB_MENU_OPTIONS);
 					if (subChoice.equals(SUB_MENU_OPTION_FEED_MONEY)) {
 						money.setCurrentMoney(menuTwo.setUserDeposit());
-					} else if(subChoice.equals(SUB_MENU_OPTION_SELECT_PRODUCT)) {
-						slot.setCurrentProductChoice(menuTwo.setUserProductChoice());
-						//userProductChoice = menuTwo.setUserProductChoice();
-						//handleProductChoice();
+					} 
+					else if(subChoice.equals(SUB_MENU_OPTION_SELECT_PRODUCT)) {
+						userProductChoice = menuTwo.setUserProductChoice();
+						handleProductChoice();
 					}
 					else  {
 						money.returnChange();
@@ -82,7 +84,6 @@ public class VendingMachineCLI {
 	
 	public static void main(String[] args) throws IOException {
 		fileRead();
-		slot.getProductsInSlot();
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
@@ -96,14 +97,27 @@ public class VendingMachineCLI {
 				arrayOfLines.add(line);
 			}
 		}
-		inventory.createProduct(arrayOfLines);
+		Map <String, ArrayList<Product>> loadedSlots = new LinkedHashMap <String, ArrayList<Product>> (inventory.createProduct(arrayOfLines));
+		slotMap = loadedSlots;
 	}
 	
-	//public void handleProductChoice() {
-	//	slot.reduceInventory(userProductChoice);
-	//}
-	
-	
+	public void handleProductChoice() {
+		ArrayList<Product> productList = slotMap.get(userProductChoice);
+		Product product = productList.get(0);
+		if (product != null) {
+			if (product.getProductPrice() > money.getCurrentMoney()) {
+				//menu item of insufficient funds
+			}
+			else {
+				System.out.println(product.makeNoise());
+				slotMap = slot.reduceInventoryInSlot(userProductChoice, slotMap);
+				money.moneySpent(product.getProductPrice());
+			}
+		}
+		else {
+			//menu for sold out
+		}
+	}
 }
 
 

@@ -8,8 +8,8 @@ public class Gum extends Product {
 
 
 	@Override
-	public void makeNoise() {
-		// TODO Auto-generated method stub
+	public String makeNoise() {
+		return "Chew, Chew, Yum!";
 		
 	}
 

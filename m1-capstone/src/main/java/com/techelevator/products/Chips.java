@@ -12,8 +12,8 @@ public class Chips extends Product {
 	}
 
 	@Override
-	public void makeNoise() {
-		// TODO Auto-generated method stub
+	public String makeNoise() {
+		return "Crunch Crunch, Yum!";
 		
 	}
 

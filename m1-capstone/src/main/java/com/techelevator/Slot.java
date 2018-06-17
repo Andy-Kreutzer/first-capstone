@@ -7,7 +7,7 @@ import com.techelevator.products.Product;
 
 
 public class Slot {
-	private Map <String, ArrayList<Product>> productsInSlot = new LinkedHashMap <String, ArrayList<Product>> ();
+	public Map <String, ArrayList<Product>> productsInSlot = new LinkedHashMap <String, ArrayList<Product>> ();
 	private String currentKey;
 	
 	public Slot () {
@@ -19,9 +19,6 @@ public class Slot {
 			productInArray.add(product);
 		}
 		this.productsInSlot.put(productSlot, productInArray);  
-		
-		System.out.println(productsInSlot);
-
 	}
 
 	@Override
@@ -33,13 +30,13 @@ public class Slot {
 		this.currentKey = userProductChoice;
 	}
 	public Map<String, ArrayList<Product>> getProductsInSlot() {
-		return productsInSlot;
+		return this.productsInSlot;
 	}
 	
-	public void reduceInventory() {
-		if (this.productsInSlot.containsKey(this.currentKey)) {
-			this.productsInSlot.remove(this.currentKey);
-		}
+	public Map<String, ArrayList<Product>> reduceInventoryInSlot(String slot, Map<String, ArrayList<Product>> slotMap) {
+		ArrayList <Product> productToReduce = slotMap.get(slot);
+		productToReduce.remove(0);
+		return slotMap;
 	}
 			
 }

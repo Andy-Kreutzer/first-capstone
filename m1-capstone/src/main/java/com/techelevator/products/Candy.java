@@ -9,9 +9,8 @@ public class Candy extends Product {
 
 
 	@Override
-	public void makeNoise() {
-		// TODO Auto-generated method stub
-
+	public String makeNoise() {
+		return "Munch Munch, Yum!";
 	}
 
 }

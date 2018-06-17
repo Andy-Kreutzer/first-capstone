@@ -40,7 +40,7 @@ public abstract class Product {
 		return this.productSlot;
 	}
 
-	public abstract void makeNoise(); 
+	public abstract String makeNoise(); 
 	
 
 	

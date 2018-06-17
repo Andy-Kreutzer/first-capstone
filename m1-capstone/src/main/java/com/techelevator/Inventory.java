@@ -1,7 +1,9 @@
 package com.techelevator;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.techelevator.products.Candy;
 import com.techelevator.products.Chips;
@@ -20,7 +22,7 @@ public class Inventory {
 	}
 	
 //	public void createProduct(List<String> arrayOfLines) {
-	public void createProduct(List<String> arrayOfLines) {		
+	public Map <String, ArrayList<Product>> createProduct(List<String> arrayOfLines) {		
 		for (int i = 0; i < arrayOfLines.size(); i++) {
 			String[] fields = arrayOfLines.get(i).split("\\|");
 			if (fields[3].equals("Chip")) {
@@ -40,7 +42,8 @@ public class Inventory {
 				slot.loadSlot(fields[0], candy, itemsPerSlot);
 			}				
 		}
-		
+		Map <String, ArrayList<Product>> loadedSlots = new LinkedHashMap <String, ArrayList<Product>> (slot.getProductsInSlot());
+		return loadedSlots;
 	}
 	
 	

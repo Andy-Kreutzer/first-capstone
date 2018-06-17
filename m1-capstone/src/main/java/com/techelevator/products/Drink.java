@@ -9,9 +9,8 @@ public class Drink extends Product {
 
 
 	@Override
-	public void makeNoise() {
-		// TODO Auto-generated method stub
-
+	public String makeNoise() {
+		return "Glug, Glug, Yum!";
 	}
 
 }
