@@ -8,9 +8,9 @@ public class Drink extends Product {
 	}
 
 
-	@Override
 	public String makeNoise() {
 		return "Glug, Glug, Yum!";
+
 	}
 
 }

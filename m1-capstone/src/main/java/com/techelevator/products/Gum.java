@@ -6,11 +6,8 @@ public class Gum extends Product {
 		super (productName, productPrice, productType);
 	}
 
-
-	@Override
 	public String makeNoise() {
 		return "Chew, Chew, Yum!";
-		
 	}
 
 }

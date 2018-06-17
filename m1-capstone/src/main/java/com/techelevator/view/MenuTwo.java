@@ -44,5 +44,7 @@ public class MenuTwo {
 		return userProductChoice;
 	}
 	
-	
+	public String getUserProductChoice () {
+		return userProductChoice;
+	}
 }
