@@ -8,7 +8,6 @@ import com.techelevator.products.Product;
 
 public class Slot {
 	public Map <String, ArrayList<Product>> productsInSlot = new LinkedHashMap <String, ArrayList<Product>> ();
-	private String currentKey;
 	
 	public Slot () {
 	}
@@ -21,14 +20,6 @@ public class Slot {
 		this.productsInSlot.put(productSlot, productInArray);  
 	}
 
-	@Override
-	public String toString() {
-		return "Slot [productsInSlot=" + productsInSlot + "]";
-	}
-
-	public void setCurrentProductChoice(String userProductChoice) {
-		this.currentKey = userProductChoice;
-	}
 	public Map<String, ArrayList<Product>> getProductsInSlot() {
 		return this.productsInSlot;
 	}

@@ -13,6 +13,6 @@ public class Chips extends Product {
 
 	@Override
 	public String makeNoise() {
-		return "Crunch Crunch, Yum!";
+		return "\n Crunch Crunch, Yum!";
 	}
 }
