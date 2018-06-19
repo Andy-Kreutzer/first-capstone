@@ -109,8 +109,11 @@ public class VendingMachineCLI {
 
 	public void handleProductChoice() {
 		ArrayList<Product> productList = slotMap.get(userProductChoice);
-		Product product = productList.get(0);
-		if (product != null) {
+		if(productList.isEmpty()) {
+            System.out.println("Sorry.  Product is sold out.");    
+		}
+		else {
+			Product product = productList.get(0);
 			if (product.getProductPrice() > money.getCurrentMoney()) {
 				//menu item of insufficient funds
 			}
@@ -119,9 +122,6 @@ public class VendingMachineCLI {
 				slotMap = slot.reduceInventoryInSlot(userProductChoice, slotMap);
 				money.moneySpent(product.getProductPrice());
 			}
-		}
-		else {
-			//menu for sold out
 		}
 	}
 
