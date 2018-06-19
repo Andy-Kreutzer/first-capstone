@@ -7,7 +7,7 @@ public class Gum extends Product {
 	}
 
 	public String makeNoise() {
-		return "Chew, Chew, Yum!";
+		return "\n Chew, Chew, Yum!";
 	}
 
 }

@@ -10,7 +10,7 @@ public class Candy extends Product {
 
 	@Override
 	public String makeNoise() {
-		return "Munch Munch, Yum!";
+		return "\n Munch Munch, Yum!";
 	}
 
 }

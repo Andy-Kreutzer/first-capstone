@@ -21,7 +21,6 @@ public class Inventory {
 		
 	}
 	
-//	public void createProduct(List<String> arrayOfLines) {
 	public Map <String, ArrayList<Product>> createProduct(List<String> arrayOfLines) {		
 		for (int i = 0; i < arrayOfLines.size(); i++) {
 			String[] fields = arrayOfLines.get(i).split("\\|");

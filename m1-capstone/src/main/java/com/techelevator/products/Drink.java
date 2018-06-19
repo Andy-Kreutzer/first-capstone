@@ -9,7 +9,7 @@ public class Drink extends Product {
 
 
 	public String makeNoise() {
-		return "Glug, Glug, Yum!";
+		return "\n Glug, Glug, Yum!";
 
 	}
 

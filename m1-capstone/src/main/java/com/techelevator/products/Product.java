@@ -1,11 +1,5 @@
 package com.techelevator.products;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import com.techelevator.Inventory;
-import com.techelevator.Money;
 import com.techelevator.Slot;
 
 public abstract class Product {

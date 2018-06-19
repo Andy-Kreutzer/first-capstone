@@ -36,7 +36,7 @@ public class VendingMachineCLI {
 	
 	
 	private Menu menu;
-	private MenuTwo menuTwo = new MenuTwo();
+	private static MenuTwo menuTwo = new MenuTwo();
 	private static List <String> arrayOfLines = new ArrayList <String> ();
 	private BigDecimal custBalance = new BigDecimal("0.00");
 	private static String userProductChoice;
@@ -47,13 +47,11 @@ public class VendingMachineCLI {
 	private static Slot slot = new Slot();
 	private static Map <String, ArrayList<Product>> slotMap = new LinkedHashMap<String, ArrayList<Product>>();
 	
-	
-	
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
 	}
 	
-	public void run() {
+	public void run() throws IOException {
 		while(true) {
 			String choice = (String)menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			
@@ -63,17 +61,20 @@ public class VendingMachineCLI {
 				boolean keepGoing = true;		
 				while (keepGoing == true) {
 					custBalance = new BigDecimal(money.getCurrentMoney()).setScale(2, RoundingMode.HALF_UP);
-					System.out.println("\n Current Balance: $" + custBalance);	
+					System.out.println("\n Current Balance: $" + custBalance);
 					String subChoice = (String)menu.getChoiceFromOptions(SUB_MENU_OPTIONS);
 					if (subChoice.equals(SUB_MENU_OPTION_FEED_MONEY)) {
 						money.setCurrentMoney(menuTwo.setUserDeposit());
+						menuTwo.printToFile("Feed Money", money.getCurrentMoney(), custBalance);
 					} 
 					else if(subChoice.equals(SUB_MENU_OPTION_SELECT_PRODUCT)) {
 						userProductChoice = menuTwo.setUserProductChoice();
 						handleProductChoice();
+	//					menuTwo.printToFile(slotMap.get(userProductChoice).get(0).getProductName(), money.getCurrentMoney(), custBalance);
 					}
 					else  {
 						money.returnChange();
+						menuTwo.printToFile("Return Change", money.getCurrentMoney(), custBalance);
 						keepGoing = false;
 					}
 				}
@@ -82,12 +83,10 @@ public class VendingMachineCLI {
 				System.exit(3);
 			}
 		}
-		
 	}
 	
 	public static void main(String[] args) throws IOException {
 		fileRead();
-		writeFile();
 		slot.getProductsInSlot();
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
@@ -106,34 +105,29 @@ public class VendingMachineCLI {
 		slotMap = loadedSlots;
 	}
 	
+	public Map<String, ArrayList<Product>> getSlotMap() {
+		return slotMap;
+	}
 
-	public void handleProductChoice() {
+	public void handleProductChoice() throws IOException {
 		ArrayList<Product> productList = slotMap.get(userProductChoice);
 		if(productList.isEmpty()) {
-            System.out.println("Sorry.  Product is sold out.");    
+			menuTwo.returnOutOfProducts();  
 		}
 		else {
 			Product product = productList.get(0);
 			if (product.getProductPrice() > money.getCurrentMoney()) {
-				//menu item of insufficient funds
+				menuTwo.returnInsufficientFunds();
 			}
 			else {
 				System.out.println(product.makeNoise());
+				System.out.println(product.getProductName() + "  $" + product.getProductPrice());
+				money.subtractMoney(product.getProductPrice());
+				money.getCurrentMoney();
+				menuTwo.printToFile(slotMap.get(userProductChoice).get(0).getProductName(), money.getCurrentMoney(), custBalance);
 				slotMap = slot.reduceInventoryInSlot(userProductChoice, slotMap);
-				money.moneySpent(product.getProductPrice());
 			}
 		}
-	}
-
-	//public void handleProductChoice() {
-	//	slot.reduceInventory(userProductChoice);
-	//}
-	
-	public static void writeFile () throws IOException {
-		FileWriter fileWriter = new FileWriter("VendingLog.txt");
-		PrintWriter printWriter = new PrintWriter(fileWriter);
-		printWriter.print(System.currentTimeMillis());
-		printWriter.close();
 	}
 }
 
